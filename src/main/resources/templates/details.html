@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Property Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <!-- FontAwesome CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            background: url("/img/backgroundimage.png.jpg") no-repeat center center/cover;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .translucent-section {
+            background: rgba(20, 20, 20, 0.85);
+            padding: 35px;
+            border-radius: 15px;
+            margin: 30px auto;
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.25);
+            width: 85%;
+            color: white;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .translucent-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.35);
+        }
+
+        h2, h3, h5 {
+            color: gold;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .carousel-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .carousel-inner img {
+            max-width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .carousel-inner img:hover {
+            transform: scale(1.02);
+        }
+
+/* Custom Styles for Property Highlights Section */
+.property-highlights-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(20, 20, 20, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.25);
+    color: white;
+}
+
+.property-highlights-section h5 {
+    color: gold;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.highlight-card {
+    background: rgba(255, 215, 0, 0.2);
+    padding: 20px 30px;
+    margin: 12px;
+    border-radius: 12px;
+    font-weight: 500;
+    color: gold;
+    border: 1px solid gold;
+    transition: background 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;  /* Default to full width */
+    margin-bottom: 20px;
+}
+
+.property-highlights-section .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+@media (min-width: 1200px) {
+    .highlight-card {
+        width: calc(25% - 24px);  /* 4 highlight cards per row on large screens */
+    }
+}
+
+@media (max-width: 767px) {
+    .highlight-card {
+        width: calc(50% - 24px);  /* 2 highlight cards per row on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .highlight-card {
+        width: 100%;  /* 1 highlight card per row on very small screens */
+    }
+}
+
+
+
+        .btn-luxury {
+            background: gold;
+            color: black;
+            font-weight: 600;
+            padding: 12px 26px;
+            border-radius: 10px;
+            transition: 0.3s ease-in-out;
+            border: none;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-luxury:hover {
+            background: #ffd700;
+            transform: scale(1.08);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .details p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .carousel-indicators button {
+            background-color: gold !important;
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+            margin: 5px;
+        }
+
+        /* Banner Image Styling */
+        .banner-image {
+            width: 100%;
+            height: 60vh;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Features Styling */
+        .translucent-section h5 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: gold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+/* Location Section Styling */
+.location-section {
+    background: rgba(20, 20, 20, 0.85);
+    padding: 30px;
+    border-radius: 15px;
+    margin: 30px auto;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.25);
+    width: 85%;
+    color: white;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.location-section h5 {
+    color: gold;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.zoom-container {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.location-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="container mt-5 text-center">
+    <h2>Property Details</h2>
+</div>
+
+<!-- Image Slider and Banner Section -->
+<div class="container">
+    <div class="row align-items-center">
+        <!-- Image Slider (Left Side) -->
+        <div class="col-lg-8">
+            <div class="translucent-section">
+                <div id="imageCarousel" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div th:each="image, iterStat : ${imageGroup.images}" 
+                             th:class="${iterStat.first} ? 'carousel-item active' : 'carousel-item'">
+                            <img th:src="@{/images/{id}(id=${image.id})}" class="d-block w-100" alt="Uploaded Image">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Banner Image (Right Side) -->
+        <div class="col-lg-4">
+            <img src="/img/sell.png" alt="Banner Image" class="banner-image">
+        </div>
+    </div>
+</div>
+
+<!-- Property Name and Currency -->
+<div class="translucent-section text-center">
+    <h3 th:text="${imageGroup.name}"></h3>
+    <h5>Currency: <span th:text="${imageGroup.currency}"></span></h5>
+</div>
+
+<!-- Property Details -->
+<div class="translucent-section details text-center">
+    <p>📍 Location: <span th:text="${imageGroup.location}"></span></p>
+    <p>🏠 Faculty: <span th:text="${imageGroup.Faculty}"></span></p>
+    <p>🛏️ Bedroom: <span th:text="${imageGroup.bedroom}"></span></p>
+    <p>📏 Area: <span th:text="${imageGroup.area}"></span></p>
+</div>
+
+<!-- Property Highlights Section -->
+<div class="property-highlights-section text-center" id="property-highlights">
+    <h5>Property Highlights</h5>
+    <div class="row">
+        <!-- Loop over features, split by comma -->
+        <div th:each="feature : ${#strings.arraySplit(imageGroup.feature, ',')}">
+            <div class="col-lg-3 col-md-6 col-sm-12"> <!-- 4 highlights per row on large, 2 per row on medium, 1 per row on small screens -->
+                <div class="highlight-card">
+                    <i class="bi bi-house-door"></i> <!-- Replace with appropriate icons -->
+                    <h6 th:text="${feature}"></h6>
+                    <p>Feature description goes here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Description -->
+<div class="translucent-section">
+    <h5>Description</h5>
+    <p th:text="${imageGroup.description}"></p>
+</div>
+
+<!-- Additional Details -->
+<div class="translucent-section">
+    <p>📜 RERA Number: <span th:text="${imageGroup.rerano}"></span></p>
+    <p>🔖 Reference Number: <span th:text="${imageGroup.referenceno}"></span></p>
+    <p>🛡️ DLD Permit Number: <span th:text="${imageGroup.dldpno}"></span></p>
+    <p>🛋️ Furnishing: <span th:text="${imageGroup.furnishing}"></span></p>
+    <p>🏡 Type: <span th:text="${imageGroup.type}"></span></p>
+</div>
+
+
+
+<!-- Location Section -->
+<div class="location-section text-center mt-5">
+    <h5>Location</h5>
+    <div class="zoom-container">
+        <!-- Dynamically get the last image -->
+        <img th:src="@{/images/{id}(id=${imageGroup.images[imageGroup.images.size() - 1].id})}" 
+             class="location-image" alt="Location Image" id="locationImage">
+    </div>
+</div>
+
+
+<!-- Zoom-in/out script -->
+<script>
+    const locationImage = document.getElementById('locationImage');
+    let zoomLevel = 1;
+
+    locationImage.addEventListener('wheel', function(event) {
+        if (event.deltaY > 0) {
+            // Zoom out
+            zoomLevel = Math.max(0.5, zoomLevel - 0.1);
+        } else {
+            // Zoom in
+            zoomLevel = Math.min(3, zoomLevel + 0.1);
+        }
+        locationImage.style.transform = `scale(${zoomLevel})`;
+    });
+</script>
+
+
+<!-- Buttons -->
+<div class="text-center">
+    <a href="#" class="btn-luxury">Contact</a>
+    <a href="#" class="btn-luxury">Buy Now</a>
+</div>
+
+<!-- Back to Gallery Button -->
+<div class="text-center">
+    <a href="/gallery" class="btn btn-luxury mt-3">Back to Gallery</a>
+</div>
+
+<footer class="footer">
+    <!-- Top Logo -->
+    <div class="footer-logo">
+        <img src="img/logo.png" alt="Company Logo">
+    </div>
+
+    <div class="footer-container">
+        <!-- Left: Pages -->
+        <div class="footer-section pages">
+            <h3>Pages</h3>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/buy">Buy</a></li>
+                <li><a href="/rent">Rent</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Center: Location -->
+        <div class="footer-section location">
+            <h3>Our Location</h3>
+            <p>1234 Street Name, City, Country</p>
+            <p>Email: info@example.com</p>
+            <p>Phone: +123 456 7890</p>
+        </div>
+
+        <!-- Right: Social Icons -->
+        <div class="footer-section social">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p>&copy; 2025 YourCompany. All Rights Reserved.</p>
+    </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

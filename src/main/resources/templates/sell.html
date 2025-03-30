@@ -1,0 +1,709 @@
+
+
+    <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+<!-- FontAwesome CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+            .navbar {
+            background-color: black ; /* Grey background */
+            position: sticky; /* Make the navbar sticky at the top */
+          
+            z-index: 1000; /* Ensure the navbar stays on top of other content */
+            height: 120px; /* Adjust navbar height for larger logo */
+        }
+
+        .navbar .nav-link {
+            color: #ffffff; /* White text */
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            color: #ffc107; /* Yellow hover effect */
+        }
+
+        .navbar .nav-link.active {
+            color: #ffc107; /* Yellow active link */
+            font-weight: bold;
+            border-bottom: 2px solid #ffc107; /* Yellow underline for active */
+        }
+
+        .logo-img {
+            height: 100px; /* Logo size increased by 5 times */
+            width: 400px;   /* Maintain aspect ratio */
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center; /* Align logo vertically with links */
+        }
+
+        .navbar {
+            padding: 10px 20px; /* Adjust padding for better spacing */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 150px; /* Scale down logo for small screens */
+            }
+
+            .navbar {
+                padding: 5px 10px; /* Reduce padding for small screens */
+            }
+
+            .navbar-nav {
+                text-align: center; /* Center-align menu items on mobile */
+            }
+
+            .navbar-nav .nav-link {
+                padding: 10px; /* Add padding for better touch targets */
+            }
+            
+        }
+        /* Background Image Class */
+        .sellbody {
+            background: url("/img/backgroundimage.png.jpg") no-repeat center center/cover;
+            background-size: cover;
+            min-height: 100vh;
+             height: auto;
+             display: flex;
+    flex-direction: column;
+        }
+
+        .sell-banner {
+            padding: 50px;
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.6); /* Black with some opacity */
+        }
+
+        .sell-banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .sell-banner a {
+            color: gold;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* Advantages Section */
+        .advantages-section {
+            padding: 60px 20px;
+            background-color: rgba(0, 0, 0, 0.4); /* Black with 0.4 opacity */
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            width: 90%; /* Set width to 90% */
+            margin: 50px auto; /* Centering and added margin for spacing */
+        }
+
+        .advantages-section h2 {
+            font-size: 2rem;
+            color: gold; /* Gold text */
+            margin-bottom: 40px;
+        }
+
+        .advantage-box {
+            background-color: black; /* Black background for cards */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+            border: 2px solid transparent; /* Transparent border by default */
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); /* Subtle glow effect by default */
+        }
+
+        .advantage-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); /* Stronger golden glow on hover */
+            border: 2px solid gold; /* Golden border on hover */
+        }
+
+        .advantage-box h4 {
+            font-size: 1.5rem;
+            color: gold; /* Gold text for titles */
+            margin-bottom: 15px;
+        }
+
+        .advantage-box p {
+            color: white; /* White text for descriptions */
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive Layout */
+        .advantages-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .advantages-row .col-md-4 {
+            flex: 1 1 calc(33.33% - 20px);
+        }
+
+        @media (max-width: 768px) {
+            .advantages-row .col-md-4 {
+                flex: 1 1 100%;
+            }
+            }
+        
+
+/* Creating Visuals Section */
+.visuals-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between boxes */
+    margin-top: 20px;
+}
+
+.visual-box {
+    position: relative;
+    background-color: black;
+    padding: 20px;
+    width: 40%; /* Adjusted width for side-by-side layout */
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 12px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); /* Subtle glow */
+    border: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Image Box */
+.image-box {
+    width: 100%;
+    height: 250px;
+    background-image: url('/img/sell.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+}
+
+/* Hover Effect */
+.visual-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+    border: 3px solid gold;
+}
+
+/* Title */
+.visual-box h4 {
+    margin-top: 15px;
+    font-size: 1.8rem;
+    color: gold;
+}
+
+/* Description */
+.visual-box p {
+    font-size: 1.2rem;
+    color: white;
+    opacity: 0.9;
+    margin-top: 10px;
+    max-width: 80%;
+}
+
+/* Click to Explore Text */
+.explore-text {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: gold;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Glow Effect on Hover */
+.visual-box:hover .explore-text {
+    color: white;
+}
+
+
+/* Steps Taken to Sell Section */
+.steps-section {
+    background-color: rgba(0, 0, 0, 0.4); /* 0.4 translucency */
+    width: 90%;
+    margin: 50px auto;
+    padding: 60px 0;
+    text-align: center;
+    border-radius: 15px;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 2rem;
+    color: gold;
+    margin-bottom: 30px;
+}
+
+/* Steps Container */
+.steps-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Step Box Styling */
+.step-box {
+    background-color: rgba(0, 0, 0, 0.9); /* Slight translucency */
+    padding: 20px;
+    width: 22%;
+    text-align: center;
+    color: white;
+    border-radius: 12px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); /* Subtle glow */
+    border: 3px solid transparent;
+}
+
+/* Hover Effect */
+.step-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+    border: 3px solid gold;
+}
+
+/* Step Title */
+.step-box h3 {
+    font-size: 1.8rem;
+    color: gold;
+    margin-bottom: 5px;
+}
+
+/* Subtitle */
+.step-box h4 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: white;
+    opacity: 0.9;
+}
+
+/* Description */
+.step-box p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+/* Contact Section */
+.contact-section {
+    background-color: rgba(0, 0, 0, 0.4); /* 0.4 translucency */
+    width: 90%;
+    margin: 50px auto;
+    padding: 60px 0;
+    border-radius: 15px;
+    text-align: center;
+}
+
+/* Title */
+.contact-section h2 {
+    font-size: 2rem;
+    color: gold;
+    margin-bottom: 30px;
+}
+
+/* Contact Container */
+.contact-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Left Side - Image */
+.contact-image {
+    width: 45%;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Right Side - Content */
+.contact-content {
+    width: 50%;
+    text-align: left;
+}
+
+/* Description */
+.contact-description {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* Contact Button */
+.contact-button {
+    background-color: gold;
+    color: black;
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Hover Effect */
+.contact-button:hover {
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+    transform: translateY(-3px);
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #121212;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Logo at the Top */
+.footer-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    width: 250px; /* Adjust size as needed */
+    height: auto;
+}
+
+/* Footer Container */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Footer Sections */
+.footer-section {
+    flex: 1;
+    padding: 15px;
+    min-width: 250px;
+}
+
+.pages, .social {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.footer-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: gold;
+}
+
+/* Links */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 5px 0;
+     margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: gold;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    transform: translateY(-140px); /* Moves the icons up */
+}
+
+
+.social-icons a img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.1);
+}
+
+/* Copyright */
+.footer-bottom {
+    background-color: #0d0d0d;
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 1rem;
+    color: #aaa;
+}
+
+.social-icon {
+    font-size: 30px;
+    color: white;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon {
+    font-size: 30px;
+    color: white;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+    color: gold;
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="/img/logo.png" alt="Logo" class="logo-img">
+            </a>
+
+            <!-- Toggle Button for Mobile View -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" th:classappend="${page == 'home'} ? 'active' : ''">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" th:classappend="${page == 'about'} ? 'active' : ''">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/contact}" th:classappend="${page == 'contact'} ? 'active' : ''">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sell" th:classappend="${page == 'sell'} ? 'active' : ''">Sell</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/buy" th:classappend="${page == 'buy'} ? 'active' : ''">Buy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rent" th:classappend="${page == 'rent'} ? 'active' : ''">Rent</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="/offplan" th:classappend="${page == 'offplan'} ? 'active' : ''">OffPlan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/properties}" th:classappend="${page == 'properties'} ? 'active' : ''">Properties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/submitReview}" th:classappend="${page == 'submitReview'} ? 'active' : ''">Review</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+<!-- Wrapper for content to apply the background -->
+<div class="sellbody">
+    <!-- Main Content -->
+    <section>
+        <!-- Banner Section -->
+        <div class="sell-banner">
+            <h1>Sell Your Property<br>With our full Guidance and support
+            <br><a href="/contact">Contact US</a></h1>
+        </div>
+    </section>
+    
+    <!-- Advantages Section -->
+    <section class="advantages-section">
+        <h2>Advantages to Sell to Raqba</h2>
+        <div class="advantages-row">
+            <div class="col-md-4">
+                <div class="advantage-box">
+                    <h4>Quick Sale</h4>
+                    <p>We provide a fast and efficient process to sell your property, ensuring you get the best deal in no time.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="advantage-box">
+                    <h4>Expert Guidance</h4>
+                    <p>Our team of experts will guide you through every step of the selling process to make it smooth and stress-free.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="advantage-box">
+                    <h4>Best Market Value</h4>
+                    <p>We ensure you get the best value for your property by leveraging our extensive market knowledge and connections.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Creating Visuals Section -->
+        <h2 class="mt-5 text-center">Creating Visuals to Sell</h2>
+        <div class="visuals-container">
+            <a href="/photo" class="visual-box">
+                <div class="image-box photo-box"></div>
+                <h4>Photo</h4>
+                <p>High-quality images that make your property stand out.</p>
+                <span class="explore-text">Click to Explore</span>
+            </a>
+            <a href="/video" class="visual-box">
+                <div class="image-box video-box"></div>
+                <h4>Video</h4>
+                <p>Engaging video walkthroughs to attract more buyers.</p>
+                <span class="explore-text">Click to Explore</span>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Steps Taken to Sell Section -->
+    <section class="steps-section">
+        <h2 class="section-title">Steps Taken to Sell</h2>
+        <div class="steps-container">
+            <div class="step-box">
+                <h3>Step 1</h3>
+                <h4>Preparation</h4>
+                <p>We evaluate your property, take professional photos, and list it strategically.</p>
+            </div>
+            <div class="step-box">
+                <h3>Step 2</h3>
+                <h4>Agreement</h4>
+                <p>We finalize the listing agreement and market your property to the right buyers.</p>
+            </div>
+            <div class="step-box">
+                <h3>Step 3</h3>
+                <h4>Negotiation</h4>
+                <p>Negotiations and offers are handled with transparency and expertise.</p>
+            </div>
+            <div class="step-box">
+                <h3>Step 4</h3>
+                <h4>Payment</h4>
+                <p>The final transaction is completed smoothly with all legalities handled.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2>Contact Us to Sell Property</h2>
+        <div class="contact-container">
+            <img src="img/sell.png" alt="Sell Property" class="contact-image">
+            <div class="contact-content">
+                <p class="contact-description">
+                    In order to sell the property, you can contact us.
+                </p>
+                <a href="/contact">
+                    <button class="contact-button">Contact Us</button>
+                </a>
+            </div>
+        </div>
+    </section>
+</div> <!-- Closing the "sellbody" wrapper properly -->
+
+
+<footer class="footer">
+    <!-- Top Logo -->
+    <div class="footer-logo">
+        <img src="img/logo.png" alt="Company Logo">
+    </div>
+
+    <div class="footer-container">
+        <!-- Left: Pages -->
+        <div class="footer-section pages">
+            <h3>Pages</h3>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/buy">Buy</a></li>
+                <li><a href="/rent">Rent</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Center: Location -->
+        <div class="footer-section location">
+            <h3>Our Location</h3>
+            <p>1234 Street Name, City, Country</p>
+            <p>Email: info@example.com</p>
+            <p>Phone: +123 456 7890</p>
+        </div>
+
+        <!-- Right: Social Icons -->
+        <div class="footer-section social">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p>&copy; 2025 YourCompany. All Rights Reserved.</p>
+    </div>
+</footer>
+
+
+<!-- Bootstrap Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+    
+

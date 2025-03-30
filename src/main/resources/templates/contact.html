@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Contact Page</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/CSS/style.css">
+    
+    <style>
+        /* Navbar Styling */
+        .navbar {
+            background-color: black; /* Black Background */
+            position: sticky;
+            z-index: 1000;
+            height: 120px;
+            padding: 10px 20px;
+        }
+
+        .navbar .nav-link {
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-link:hover, 
+        .navbar .nav-link.active {
+            color: #ffc107;
+            font-weight: bold;
+            border-bottom: 2px solid #ffc107;
+        }
+
+        .logo-img {
+            height: 100px;
+            width: 400px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 150px;
+            }
+
+            .navbar {
+                padding: 5px 10px;
+            }
+
+            .navbar-nav {
+                text-align: center;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 10px;
+            }
+        }
+
+        /* Page Background */
+        .contactbody {
+            background: url('/img/backgroundimage.png.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh; /* Ensures full-page height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            padding: 50px;
+        }
+
+        /* Contact Form Section */
+        section {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 40px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: gold;
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid gold;
+            background: black;
+            color: silver;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 40px; /* Matches input height */
+            resize: none;
+        }
+
+        button {
+    background-color: gold;
+    color: black;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    display: block;  /* Makes button a block element */
+    margin: 20px auto 0;  /* Centers button horizontally */
+}
+
+button:hover {
+    background-color: #e6b800;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #121212;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Logo at the Top */
+.footer-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    width: 250px; /* Adjust size as needed */
+    height: auto;
+}
+
+/* Footer Container */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Footer Sections */
+.footer-section {
+    flex: 1;
+    padding: 15px;
+    min-width: 250px;
+}
+
+.pages, .social {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.footer-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: gold;
+}
+
+/* Links */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 5px 0;
+     margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: gold;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    transform: translateY(-140px); /* Moves the icons up */
+}
+
+
+.social-icons a img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.1);
+}
+
+/* Copyright */
+.footer-bottom {
+    background-color: #0d0d0d;
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 1rem;
+    color: #aaa;
+}
+
+.social-icon {
+    font-size: 30px;
+    color: white;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon {
+    font-size: 30px;
+    color: white;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+    color: gold;
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.png" alt="Logo" class="logo-img">
+        </a>
+
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}" th:classappend="${page == 'home'} ? 'active' : ''">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/about}" th:classappend="${page == 'about'} ? 'active' : ''">About</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/contact}" th:classappend="${page == 'contact'} ? 'active' : ''">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/sell}" th:classappend="${page == 'sell'} ? 'active' : ''">Sell</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/buy}" th:classappend="${page == 'buy'} ? 'active' : ''">Buy</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/rent}" th:classappend="${page == 'rent'} ? 'active' : ''">Rent</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/offplan}" th:classappend="${page == 'offplan'} ? 'active' : ''">OffPlan</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/properties}" th:classappend="${page == 'properties'} ? 'active' : ''">Properties</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/submitReview}" th:classappend="${page == 'submitReview'} ? 'active' : ''">Review</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Form -->
+    <div class="contactbody">
+        <h1>Contact Us</h1>
+        <section>
+            <form th:action="@{/submitContact}" th:object="${contact}" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" th:field="*{name}" placeholder="Your Name" required>
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" th:field="*{phone}" placeholder="Your Phone" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" placeholder="Your Email" required>
+
+                <label for="property">Your Property Type:</label>
+                <select id="property" th:field="*{property}" required>
+                    <option value="">Select Property Type</option>
+                    <option value="Buy">Buy</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Off-Plan">Off-Plan</option>
+                    <option value="Sell">Sell</option>
+                </select>
+
+                <label for="bedroom">Required Bedroom:</label>
+                <select id="bedroom" th:field="*{bedroom}" required>
+                    <option value="">Select Bedroom Count</option>
+                    <option th:each="i : ${#numbers.sequence(1, 20)}" th:value="${i}" th:text="${i}"></option>
+                </select>
+
+                <label for="currency">Maximum Budget:</label>
+                <input type="number" id="currency" th:field="*{currency}" placeholder="Your Maximum Budget" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </div>
+
+<footer class="footer">
+    <!-- Top Logo -->
+    <div class="footer-logo">
+        <img src="img/logo.png" alt="Company Logo">
+    </div>
+
+    <div class="footer-container">
+        <!-- Left: Pages -->
+        <div class="footer-section pages">
+            <h3>Pages</h3>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/buy">Buy</a></li>
+                <li><a href="/rent">Rent</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Center: Location -->
+        <div class="footer-section location">
+            <h3>Our Location</h3>
+            <p>1234 Street Name, City, Country</p>
+            <p>Email: info@example.com</p>
+            <p>Phone: +123 456 7890</p>
+        </div>
+
+        <!-- Right: Social Icons -->
+        <div class="footer-section social">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p>&copy; 2025 YourCompany. All Rights Reserved.</p>
+    </div>
+</footer>
+</body>
+</html>

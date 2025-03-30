@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #343a40;
+            padding: 15px 20px;
+        }
+        .navbar .nav-link {
+            color: #ffffff;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .navbar .nav-link:hover, .navbar .nav-link.active {
+            color: #ffc107;
+        }
+        .logo-img {
+            height: 80px;
+            width: auto;
+        }
+        .container-content {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #343a40;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #ffc107;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/user/admindashboard">
+            <img src="/img/logo.png" alt="Logo" class="logo-img">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/" th:classappend="${page == 'admindashboard'} ? 'active' : ''">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about" th:classappend="${page == 'about'} ? 'active' : ''">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact" th:classappend="${page == 'contact'} ? 'active' : ''">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="viewContacts" th:classappend="${page == 'contacts'} ? 'active' : ''">Contacts</a></li>
+                <li class="nav-item"><a class="nav-link" href="userProperties" th:classappend="${page == 'Properties'} ? 'active' : ''">Properties</a></li>
+                <li class="nav-item"><a class="nav-link" href="upload" th:classappend="${page == 'upload'} ? 'active' : ''">Upload</a></li>
+                <li class="nav-item"><a class="nav-link" href="reviews" th:classappend="${page == 'review'} ? 'active' : ''">Review</a></li>
+                <li class="nav-item"><a class="nav-link" href="usergallery" th:classappend="${page == 'offplan'} ? 'active' : ''">Gallery</a></li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-content">
+    <h1>Welcome to the User Dashboard</h1>
+    <p>Select an option from the menu above to proceed.</p>
+    <a href="/logout" class="btn btn-primary mt-3">Logout</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

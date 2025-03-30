@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Review</title>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- FontAwesome CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* General Page Styling */
+        
+               .navbar {
+            background-color: black ; /* Grey background */
+            position: sticky; /* Make the navbar sticky at the top */
+          
+            z-index: 1000; /* Ensure the navbar stays on top of other content */
+            height: 120px; /* Adjust navbar height for larger logo */
+        }
+
+        .navbar .nav-link {
+            color: #ffffff; /* White text */
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            color: #ffc107; /* Yellow hover effect */
+        }
+
+        .navbar .nav-link.active {
+            color: #ffc107; /* Yellow active link */
+            font-weight: bold;
+            border-bottom: 2px solid #ffc107; /* Yellow underline for active */
+        }
+
+        .logo-img {
+            height: 100px; /* Logo size increased by 5 times */
+            width: 400px;   /* Maintain aspect ratio */
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center; /* Align logo vertically with links */
+        }
+
+        .navbar {
+            padding: 10px 20px; /* Adjust padding for better spacing */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 150px; /* Scale down logo for small screens */
+            }
+
+            .navbar {
+                padding: 5px 10px; /* Reduce padding for small screens */
+            }
+
+            .navbar-nav {
+                text-align: center; /* Center-align menu items on mobile */
+            }
+
+            .navbar-nav .nav-link {
+                padding: 10px; /* Add padding for better touch targets */
+            }
+            
+        }
+        
+      .reviewbody {
+    background-image: url("/img/backgroundimage.png.jpg"); /* Corrected syntax */
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* Ensures the background covers the full height of the page */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+    justify-content: flex-start; /* Ensures content starts at the top */
+    color: #fff; /* Set text color to white for better contrast against the background */
+}
+
+
+        /* Banner Section */
+        .review-banner {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: url('/img/banner.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .review-banner h1 {
+            font-size: 3rem;
+            color: #ffcc00;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* Review Form Styling */
+   .review-form-container {
+    background: black;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 204, 0, 0.3);
+    width: 90%; /* Set the width to 90% of the parent container */
+    max-width: 1000px; /* Optional: Set a max-width to prevent it from becoming too large */
+    margin: 50px auto;
+    color: #fff;
+    text-align: center;
+  }
+
+
+
+        .review-form input,
+        .review-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 15px;
+            background: #333;
+            color: #fff;
+        }
+
+        .review-form input:focus,
+        .review-form textarea:focus {
+            outline: 2px solid #ffcc00;
+        }
+
+        /* Star Rating */
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .star-rating label {
+            font-size: 2em;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #ffcc00;
+        }
+
+        /* Submit Button */
+        .review-submit-button {
+            background: #ffcc00;
+            color: #000;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .review-submit-button:hover {
+            background: #e6b800;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+        
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .reviews-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            
+            margin: auto; /* Centering the section */
+             text-align: center ;
+    padding: 40px; /* Added padding */
+    background-color: rgba(0, 0, 0, 0.35); /* Black with 60% opacity */
+   
+    width: 95%; /* Covers 95% of the page width */
+    margin: auto; /* Centering the section */
+    border-radius: 10px; /* Optional: Makes edges rounded */
+        }
+
+        .review {
+            background: black;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(255, 204, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .review:hover {
+            transform: scale(1.05);
+        }
+
+        .review h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .review p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        /* More Button */
+        .review-more-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .review-more-button:hover {
+            background: #0056b3;
+        }
+
+        /* Modal */
+        .review-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+        }
+
+        .review-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: black;
+            border-radius: 8px;
+            width: 50%;
+            padding: 20px;
+            display: none;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(255, 204, 0, 0.3);
+        }
+        
+        .review-modal-body {
+    max-height: 400px;  /* Adjust the height as needed */
+    overflow-y: auto;
+    text-align: left;  /* To ensure text alignment in the modal */
+      }
+
+        
+
+        .review-close-button {
+            background: #ff5555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .review-close-button:hover {
+            background: #ff0000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .review {
+                width: 90%;
+            }
+
+            .review-modal {
+                width: 80%;
+            }
+        }
+    </style>
+    
+<script>
+function showFullMessage(fullName, fullMessage) {
+    const modal = document.getElementById("reviewModal");
+    const modalOverlay = document.getElementById("modalOverlay");
+
+    // Ensure modal is found
+    console.log(modal, modalOverlay);
+
+    // Update modal content
+    modal.querySelector(".review-modal-header").textContent = `Review by ${fullName}`;
+
+    // Format message in chunks of 10 words for the modal
+    const formattedMessage = fullMessage.split(' ').reduce((acc, word, idx) => {
+        return acc + word + ((idx + 1) % 10 === 0 ? "<br>" : " ");
+    }, "");
+
+    modal.querySelector(".review-modal-body").innerHTML = formattedMessage;
+    modal.style.display = "flex";
+    modalOverlay.style.display = "block";
+}
+
+function closeModal() {
+    const modal = document.getElementById("reviewModal");
+    const modalOverlay = document.getElementById("modalOverlay");
+
+    // Close the modal and overlay
+    modal.style.display = "none";
+    modalOverlay.style.display = "none";
+}
+
+// Function to shorten the review message displayed in the card
+function shortenReviewMessage(reviewElement) {
+    const reviewMessageElement = reviewElement.querySelector('.review-message');
+    const fullMessage = reviewMessageElement.textContent; // Get the full message
+
+    // Set a character limit (e.g., 100 characters)
+    const truncatedMessage = fullMessage.length > 100 ? fullMessage.substring(0, 100) + "..." : fullMessage;
+    
+    // Update the review card with the truncated message
+    reviewMessageElement.textContent = truncatedMessage;
+
+    // Store the full message in a custom attribute (for later use)
+    reviewMessageElement.setAttribute("data-full-message", fullMessage);
+}
+
+// Add event listener to all review elements to shorten their messages on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const reviews = document.querySelectorAll('.review');
+    reviews.forEach(review => {
+        shortenReviewMessage(review);
+    });
+
+    // Set up the "More" buttons after DOM content is loaded
+    setupReviewButtons();
+});
+
+// Event listener for the "More" button to show full message in the modal
+function setupReviewButtons() {
+    const buttons = document.querySelectorAll('.review-more-button');
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            const reviewElement = button.closest('.review');
+            const fullMessage = reviewElement.querySelector('.review-message').getAttribute("data-full-message"); // Get the full message
+
+            const fullName = reviewElement.querySelector('h2').innerText;
+            showFullMessage(fullName, fullMessage);  // Pass the full message to the modal
+        });
+    });
+}
+
+
+
+
+
+</script>
+
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="/img/logo.png" alt="Logo" class="logo-img">
+            </a>
+
+            <!-- Toggle Button for Mobile View -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" th:classappend="${page == 'home'} ? 'active' : ''">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" th:classappend="${page == 'about'} ? 'active' : ''">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/contact}" th:classappend="${page == 'contact'} ? 'active' : ''">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sell" th:classappend="${page == 'sell'} ? 'active' : ''">Sell</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/buy" th:classappend="${page == 'buy'} ? 'active' : ''">Buy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rent" th:classappend="${page == 'rent'} ? 'active' : ''">Rent</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="/offplan" th:classappend="${page == 'offplan'} ? 'active' : ''">OffPlan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/properties}" th:classappend="${page == 'properties'} ? 'active' : ''">Properties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/submitReview}" th:classappend="${page == 'submitReview'} ? 'active' : ''">Review</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    <div class="review-banner">
+        <h1>Write a Review</h1>
+    </div>
+<div class="reviewbody">
+    <section class="reviews-section">
+        <h2>Customer Reviews</h2>
+        <div class="reviews-container">
+           <div th:each="review : ${reviews}" class="review">
+    <h2 th:text="${review.fullName}"></h2>
+    <p><strong>Location:</strong> <span th:text="${review.location}"></span></p>
+    <p class="stars">
+        <span th:each="i : ${#numbers.sequence(1, review.starRating)}">⭐</span>
+    </p>
+    <p class="review-message" th:text="${review.reviewMessage}"></p> <!-- Add this line to display the message -->
+    <button class="review-more-button" onclick="showFullMessage(this.parentNode.querySelector('h2').innerText, this.parentNode.querySelector('.review-message').innerText)">More</button>
+</div>
+
+        </div>
+    </section>
+
+    <!-- Modal Overlay (hidden initially) -->
+<div id="modalOverlay" class="review-modal-overlay" onclick="closeModal()"></div>
+
+<!-- Modal (hidden initially) -->
+<div id="reviewModal" class="review-modal">
+    <div class="review-modal-header"></div>
+    <div class="review-modal-body"></div>
+    <button class="review-close-button" onclick="closeModal()">Close</button>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="review-form-container">
+    <h2 class="review-form-title">Submit Your Review</h2>
+    <form class="review-form" th:action="@{/submitReview}" th:object="${newReview}" method="post">
+        <div class="form-group">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" th:field="*{fullName}" placeholder="Enter your full name" required />
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" th:field="*{email}" placeholder="Enter your email address" required />
+        </div>
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" th:field="*{location}" placeholder="Enter your location" required />
+        </div>
+        <div class="form-group">
+    <label>Rating:</label>
+    <div class="star-rating">
+        <input type="radio" id="star1" name="starRating" value="1" required>
+        <label for="star1" class="star">&#9734;</label>
+
+        <input type="radio" id="star2" name="starRating" value="2">
+        <label for="star2" class="star">&#9734;</label>
+
+        <input type="radio" id="star3" name="starRating" value="3">
+        <label for="star3" class="star">&#9734;</label>
+
+        <input type="radio" id="star4" name="starRating" value="4">
+        <label for="star4" class="star">&#9734;</label>
+
+        <input type="radio" id="star5" name="starRating" value="5">
+        <label for="star5" class="star">&#9734;</label>
+    </div>
+</div>
+
+        <div class="form-group">
+            <label for="reviewMessage">Message:</label>
+            <textarea id="reviewMessage" name="reviewMessage" th:field="*{reviewMessage}" placeholder="Write your review here..." required></textarea>
+        </div>
+        <button type="submit" class="review-submit-button">Submit Review</button>
+    </form>
+</div>
+</div>
+
+<footer class="footer">
+    <!-- Top Logo -->
+    <div class="footer-logo">
+        <img src="img/logo.png" alt="Company Logo">
+    </div>
+
+    <div class="footer-container">
+        <!-- Left: Pages -->
+        <div class="footer-section pages">
+            <h3>Pages</h3>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/buy">Buy</a></li>
+                <li><a href="/rent">Rent</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Center: Location -->
+        <div class="footer-section location">
+            <h3>Our Location</h3>
+            <p>1234 Street Name, City, Country</p>
+            <p>Email: info@example.com</p>
+            <p>Phone: +123 456 7890</p>
+        </div>
+
+        <!-- Right: Social Icons -->
+        <div class="footer-section social">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p>&copy; 2025 YourCompany. All Rights Reserved.</p>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Properties</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}">  
+   <!-- FontAwesome CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+   
+    <style>
+            .navbar {
+            background-color: black ; /* Grey background */
+            position: sticky; /* Make the navbar sticky at the top */
+          
+            z-index: 1000; /* Ensure the navbar stays on top of other content */
+            height: 120px; /* Adjust navbar height for larger logo */
+        }
+
+        .navbar .nav-link {
+            color: #ffffff; /* White text */
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            color: #ffc107; /* Yellow hover effect */
+        }
+
+        .navbar .nav-link.active {
+            color: #ffc107; /* Yellow active link */
+            font-weight: bold;
+            border-bottom: 2px solid #ffc107; /* Yellow underline for active */
+        }
+
+        .logo-img {
+            height: 100px; /* Logo size increased by 5 times */
+            width: 400px;   /* Maintain aspect ratio */
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center; /* Align logo vertically with links */
+        }
+
+        .navbar {
+            padding: 10px 20px; /* Adjust padding for better spacing */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 150px; /* Scale down logo for small screens */
+            }
+
+            .navbar {
+                padding: 5px 10px; /* Reduce padding for small screens */
+            }
+
+            .navbar-nav {
+                text-align: center; /* Center-align menu items on mobile */
+            }
+
+            .navbar-nav .nav-link {
+                padding: 10px; /* Add padding for better touch targets */
+            }
+            
+        }
+    /* General Page Styling */
+.rentbody {
+     background-image: url("/img/backgroundimage.png.jpg"); /*Corrected syntax */
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Ensures the background covers the full height */
+}
+
+/* Heading Styles */
+h2 {
+    font-size: 36px;
+    color: #DAA520; /* Dark Golden */
+    margin-top: 20px;
+}
+
+/* Filter Section */
+form {
+    background-color: rgba(255, 255, 255, 0.1); /* Translucent white */
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+form label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #DAA520;
+}
+
+form select, form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #DAA520;
+    background-color: #222;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+button {
+    background-color: #DAA520;
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    color: #1c1c1c;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background-color: white;
+    color: #DAA520;
+}
+
+/* Property Listings Section */
+h3 {
+    font-size: 30px;
+    margin-top: 30px;
+    color: #DAA520;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Property Cards */
+.card {
+    background-color: black;
+    border-radius: 12px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.card-body {
+    text-align: left;
+    padding: 15px;
+}
+
+.card-body p{
+color:white;
+text-align:center;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-align:center;
+}
+
+.card-text {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Image Slider (Carousel) */
+.carousel {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.carousel img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(255, 215, 0, 0.7);
+    border-radius: 50%;
+}
+
+.container h3{
+text-align: center;
+}
+
+/* Details Button */
+.btn-primary {
+    display: block;
+    background-color: #DAA520;
+    border: none;
+    padding: 12px;
+    text-align: center;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1c1c1c;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: white;;
+    color: #DAA520;
+}
+
+.page-link{
+color: #DAA520;
+
+}
+
+#residentialFilters, #landFilters, #commercialFilters {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #121212;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Logo at the Top */
+.footer-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    width: 250px; /* Adjust size as needed */
+    height: auto;
+}
+
+/* Footer Container */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Footer Sections */
+.footer-section {
+    flex: 1;
+    padding: 15px;
+    min-width: 250px;
+}
+
+.pages, .social {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.footer-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: gold;
+}
+
+/* Links */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 5px 0;
+     margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: gold;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    transform: translateY(-140px); /* Moves the icons up */
+}
+
+
+.social-icons a img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.1);
+}
+
+/* Copyright */
+.footer-bottom {
+    background-color: #0d0d0d;
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 1rem;
+    color: #aaa;
+}
+
+.social-icon {
+    font-size: 30px;
+    color: white;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon {
+    font-size: 30px;
+    color: white;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+    color: gold;
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+    
+    </style>
+    
+ <script>
+    function updateFilters() {
+        let field = document.getElementById("field-select").value;
+
+        // Hide all filter sections
+        document.getElementById("residential-filters").style.display = "none";
+        document.getElementById("commercial-filters").style.display = "none";
+        document.getElementById("land-filters").style.display = "none";
+
+        // Show the relevant filter section
+        if (field === "Residential") {
+            document.getElementById("residential-filters").style.display = "block";
+        } else if (field === "Commercial") {
+            document.getElementById("commercial-filters").style.display = "block";
+        } else if (field === "Land") {
+            document.getElementById("land-filters").style.display = "block";
+        }
+    }
+
+    function cleanForm() {
+        let field = document.getElementById("field-select").value;
+
+        // Disable irrelevant inputs before submission
+        document.querySelectorAll("#residential-filters select, #residential-filters input").forEach(el => el.disabled = (field !== "Residential"));
+        document.querySelectorAll("#commercial-filters select, #commercial-filters input").forEach(el => el.disabled = (field !== "Commercial"));
+        document.querySelectorAll("#land-filters select, #land-filters input").forEach(el => el.disabled = (field !== "Land"));
+
+        return true; // Allow form submission
+    }
+
+    // Ensure correct filters are displayed on page load
+    document.addEventListener("DOMContentLoaded", updateFilters);
+</script>
+    
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="/img/logo.png" alt="Logo" class="logo-img">
+            </a>
+
+            <!-- Toggle Button for Mobile View -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" th:classappend="${page == 'home'} ? 'active' : ''">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" th:classappend="${page == 'about'} ? 'active' : ''">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/contact}" th:classappend="${page == 'contact'} ? 'active' : ''">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sell" th:classappend="${page == 'sell'} ? 'active' : ''">Sell</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/buy" th:classappend="${page == 'buy'} ? 'active' : ''">Buy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rent" th:classappend="${page == 'rent'} ? 'active' : ''">Rent</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="/offplan" th:classappend="${page == 'offplan'} ? 'active' : ''">OffPlan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/properties}" th:classappend="${page == 'properties'} ? 'active' : ''">Properties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/submitReview}" th:classappend="${page == 'submitReview'} ? 'active' : ''">Review</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+<div class="rentbody">
+
+    <h2>Rent Properties</h2>
+    
+
+
+    
+
+    <!-- Filter Section -->
+<!-- Filter Section -->
+<form method="get" action="/rent" onsubmit="return cleanForm()">
+
+    <label>Field:</label>
+    <select name="field" id="field-select" onchange="updateFilters()">
+        <option value="">Any</option>
+        <option value="Residential" th:selected="${param.field == 'Residential'}">Residential</option>
+        <option value="Commercial" th:selected="${param.field == 'Commercial'}">Commercial</option>
+        <option value="Land" th:selected="${param.field == 'Land'}">Land</option>
+    </select>
+
+    <div id="residential-filters" style="display: none;">
+        <label>Location:</label>
+        <select name="residentialLocation">
+            <option value="">Any</option>
+            <th:block th:each="location : ${availableLocations}">
+                <option th:text="${location}" th:value="${location}" th:selected="${location == param.location}"></option>
+            </th:block>
+        </select>
+
+        <label>Bedroom:</label>
+        <select name="residentialBedroom">
+            <option value="">Any</option>
+            <th:block th:each="bedroom : ${availableBedrooms}">
+                <option th:text="${bedroom}" th:value="${bedroom}" th:selected="${bedroom == param.bedroom}"></option>
+            </th:block>
+        </select>
+
+        <label>Faculty:</label>
+        <select name="residentialFaculty">
+            <option value="">Any</option>
+            <th:block th:each="faculty : ${availableFaculties}">
+                <option th:text="${faculty}" th:value="${faculty}" th:selected="${faculty == param.faculty}"></option>
+            </th:block>
+        </select>
+
+        <label>Max Area:</label>
+        <input type="number" name="residentialMaxArea" th:value="${param.maxArea}" placeholder="Enter Max Area">
+    </div>
+
+    <div id="commercial-filters" style="display: none;">
+        <label>Location:</label>
+        <select name="commercialLocation">
+            <option value="">Any</option>
+            <th:block th:each="location : ${availableLocations}">
+                <option th:text="${location}" th:value="${location}" th:selected="${location == param.location}"></option>
+            </th:block>
+        </select>
+
+        <label>Faculty:</label>
+        <select name="commercialFaculty">
+            <option value="">Any</option>
+            <th:block th:each="faculty : ${availableFaculties}">
+                <option th:text="${faculty}" th:value="${faculty}" th:selected="${faculty == param.faculty}"></option>
+            </th:block>
+        </select>
+
+        <label>Max Area:</label>
+        <input type="number" name="commercialMaxArea" th:value="${param.maxArea}" placeholder="Enter Max Area">
+    </div>
+
+    <div id="land-filters" style="display: none;">
+        <label>Location:</label>
+        <select name="landLocation">
+            <option value="">Any</option>
+            <th:block th:each="location : ${availableLocations}">
+                <option th:text="${location}" th:value="${location}" th:selected="${location == param.location}"></option>
+            </th:block>
+        </select>
+
+        <label>Max Area:</label>
+        <input type="number" name="landMaxArea" th:value="${param.maxArea}" placeholder="Enter Max Area">
+    </div>
+
+    <button type="submit">Apply Filters</button>
+</form>
+
+
+
+
+
+
+
+<div class="container">
+    <h3>Available Properties</h3>
+    <div class="row">
+        <th:block th:each="group : ${filteredProperties}">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <!-- Bootstrap Carousel for Image Slider -->
+                    <div th:id="'carousel-' + ${group.imageId}" class="carousel slide" data-bs-ride="false">
+                        <div class="carousel-inner">
+                            <th:block th:each="image, iterStat : ${group.images}">
+                                <div class="carousel-item" th:classappend="${iterStat.first} ? 'active' : ''">
+                                    <img th:src="@{'/images/' + ${image.id}}" class="d-block w-100" alt="Image">
+                                </div>
+                            </th:block>
+                        </div>
+
+                        <!-- Carousel Controls -->
+                        <button class="carousel-control-prev" type="button" th:data-bs-target="'#carousel-' + ${group.imageId}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" th:data-bs-target="'#carousel-' + ${group.imageId}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${group.name}"></h5>
+                        <p class="card-text">Type: <span th:text="${group.type}"></span></p>
+                        <p class="card-text">Bedroom: <span th:text="${group.bedroom}"></span></p>
+                        <p class="card-text">Currency: <span th:text="${group.currency}"></span></p>
+
+                        <a th:href="@{details/{id}(id=${group.imageId})}" class="btn btn-primary">Show Details</a>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+
+    <!-- Pagination -->
+<!-- Pagination -->
+<div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:if="${currentPage > 0}">
+                <a class="page-link" 
+                   th:href="@{/rent(page=${currentPage - 1}, field=${param.field}, location=${param.location}, bedroom=${param.bedroom}, faculty=${param.faculty}, maxArea=${param.maxArea})}">
+                    Previous
+                </a>
+            </li>
+            
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'active'">
+                <a class="page-link" 
+                   th:href="@{/rent(page=${i}, field=${param.field}, location=${param.location}, bedroom=${param.bedroom}, faculty=${param.faculty}, maxArea=${param.maxArea})}"
+                   th:text="${i + 1}">
+                </a>
+            </li>
+            
+            <li class="page-item" th:if="${currentPage + 1 < totalPages}">
+                <a class="page-link" 
+                   th:href="@{/rent(page=${currentPage + 1}, field=${param.field}, location=${param.location}, bedroom=${param.bedroom}, faculty=${param.faculty}, maxArea=${param.maxArea})}">
+                    Next
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+    <!-- Top Logo -->
+    <div class="footer-logo">
+        <img src="img/logo.png" alt="Company Logo">
+    </div>
+
+    <div class="footer-container">
+        <!-- Left: Pages -->
+        <div class="footer-section pages">
+            <h3>Pages</h3>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/buy">Buy</a></li>
+                <li><a href="/rent">Rent</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Center: Location -->
+        <div class="footer-section location">
+            <h3>Our Location</h3>
+            <p>1234 Street Name, City, Country</p>
+            <p>Email: info@example.com</p>
+            <p>Phone: +123 456 7890</p>
+        </div>
+
+        <!-- Right: Social Icons -->
+        <div class="footer-section social">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p>&copy; 2025 YourCompany. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS + Popper.js -->
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>
