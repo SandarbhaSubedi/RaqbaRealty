@@ -1,0 +1,27 @@
+name: Deploy Java App to VPS
+
+on:
+  push:
+    branches:
+      - main  # Change to your branch name if needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /var/www/RaqbaRealty
+            git pull origin main  # Change branch if needed
+            mvn clean package  # Build the Java app
+            systemctl restart raqbarealty.service
+            systemctl status raqbarealty.service
