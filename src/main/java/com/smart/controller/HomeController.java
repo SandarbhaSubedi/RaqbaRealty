@@ -103,21 +103,7 @@ public class HomeController {
 
 
 	
-	@GetMapping("/home")
-	public String home(Model model) {
-		model.addAttribute("title","Home - Raqba Realty");
-		model.addAttribute("page", "home");
-		
-		// Get exclusive properties from the service layer
-        List<ImageGroup> exclusiveProperties = imageService.getExclusiveProperties();
-        
-        List<Review> reviews = reviewService.getLatestReviews();
-        model.addAttribute("reviews", reviews);
-        
-        // Add to the model for use in the view
-        model.addAttribute("exclusiveProperties", exclusiveProperties);
-        return "home";
-	}
+	
 
 	@GetMapping("/about")
 	public String about(Model model) {

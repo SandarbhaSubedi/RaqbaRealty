@@ -126,7 +126,7 @@ public class MyConfig {
             .formLogin()
                 .loginPage("/signin")
                 .loginProcessingUrl("/dologin")
-                .defaultSuccessUrl("/user/userdashboard");
+                .defaultSuccessUrl("/user/admindashboard");
         
         return http.build();
     }                               
