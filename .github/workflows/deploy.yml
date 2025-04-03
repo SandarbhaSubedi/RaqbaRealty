@@ -3,7 +3,7 @@ name: Deploy Java App to VPS
 on:
   push:
     branches:
-      - main  # Change to your branch name if needed
+      - main  # Change branch if needed
 
 jobs:
   deploy:
@@ -19,9 +19,21 @@ jobs:
       - name: Deploy to VPS using password
         run: |
           sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} -p 22 << 'EOF'
+            echo "🔄 Connecting to VPS..."
             cd /var/www/RaqbaRealty
-            git pull origin main  # Change branch if needed
-            mvn clean package  # Build the Java app
-            systemctl restart raqbarealty.service
-            systemctl status raqbarealty.service
+
+            echo "🛠️ Resetting local changes (if any)..."
+            git reset --hard HEAD
+            git clean -fd  # Removes untracked files and directories
+
+            echo "⬇️ Pulling latest code..."
+            git pull origin main || { echo "❌ Git pull failed!"; exit 1; }
+
+            echo "🚀 Building Java application..."
+            mvn clean package || { echo "❌ Maven build failed!"; exit 1; }
+
+            echo "🔄 Restarting service..."
+            systemctl restart raqbarealty.service || { echo "❌ Service restart failed!"; exit 1; }
+            
+            echo "✅ Deployment completed successfully!"
           EOF
