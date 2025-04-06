@@ -199,7 +199,7 @@
 
 /* Main Container */
 .Homeexclusive-container {
-    background-color: #531F55;
+    background: linear-gradient(45deg, #531F55, #3A1C40, #4D2F73, #8C4D0A);
     padding: 50px 0;
     text-align: center;
 }
@@ -220,6 +220,7 @@
 .exclusivecontent-heading {
     font-size: 1.2rem;
     color: white;
+    font-weight: 400;
     margin-bottom: 30px;
 }
 
@@ -430,62 +431,68 @@
     margin-left: 7%;
 }
  
-        .Hometype-container {
-            background-color: #531F55;
-            padding: 50px 20px;
-        }
-        .Hometype-text-content {
-            text-align: left;
-            margin-bottom: 20px;
-            max-width: 50%;
-        }
-       
-        
-        .HTfirst-heading{
-            font-size: 2.5rem;
-            color : #FFD700;
-           font-weight: 500;
-        }
-        
-        .HTsecond-heading{
-            font-size: 3rem;
-            color : white;
-           font-weight: 700;
-        }
-        
-        
-        .Hometype-text-content p {
-            margin-bottom: 0;
-            font-size: 1.3rem;
-            font-weight: 500;
-            line-height: 1.7;
-            
-        }
-        .Hometype-property-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-bottom: 2px solid #D4AF37;
-        }
-        .Hometype-btn-primary {
-            background-color: #FFD700;
-            color: black;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-        .Hometype-btn-primary:hover {
-            background-color: #E6C300;
-        }
-        
-         .card {
-            background-color: rgba(0, 0, 0, 0.3); /* 30% transparent black */
-            text-align: center;
-        }
+      .Hometype-container {
+    background-color: #531F55;
+    padding: 50px 20px;
+}
+
+.Hometype-text-content {
+    text-align: left;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.HTfirst-heading {
+    font-size: 2.3rem;
+    color: #FFD700;
+    font-weight: 500;
+}
+
+.HTsecond-heading {
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 700;
+}
+
+.Hometype-text-content p {
+    margin-bottom: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #f2f2f2;
+}
+
+/* Property card image */
+.Hometype-property-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 2px solid #D4AF37;
+}
+
+/* Primary button */
+.Hometype-btn-primary {
+    background-color: #FFD700;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.Hometype-btn-primary:hover {
+    background-color: #E6C300;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
         
              /* Container styling */
 .HomeReview-container {
@@ -914,7 +921,7 @@ footer {
         <div class="row justify-content-center mt-4">
             <div class="col-md-6 col-lg-5 mb-4" th:each="group, iterStat : ${exclusiveProperties}" th:if="${iterStat.index < 2}">
                 <div class="card exclusive-card h-100">
-                    <div id="carousel-" th:id="'carousel-' + ${group.imageId}" class="carousel slide" data-bs-ride="carousel">
+                    <div id="carousel-" th:id="'carousel-' + ${group.imageId}" class="carousel slide" data-bs-ride="false">
                         <div class="carousel-inner">
                             <th:block th:each="image, imageIter : ${group.images}">
                                 <div class="carousel-item" th:classappend="${imageIter.first} ? 'active' : ''">
@@ -974,34 +981,45 @@ footer {
 
 <section class="Hometype-container">
     <div class="container">
-        <div class="Hometype-text-content">
-            <h3 class="HTfirst-heading">Current Listings</h3>
-            <h3 class="HTsecond-heading">What We Have For You</h3>
-            <p>At Raqba Realty, we specialize in delivering an unparalleled real estate experience in one of the world's most dynamic and luxurious cities—Dubai. Whether you're searching for a stunning property, we have options for you.</p>
-        </div>
+        <div class="row">
+            <!-- Text Content -->
+            <div class="col-12 col-md-6">
+                <div class="Hometype-text-content">
+                    <h3 class="HTfirst-heading">Current Listings</h3>
+                    <h3 class="HTsecond-heading">What We Have For You</h3>
+                    <p>At Raqba Realty, we specialize in delivering an unparalleled real estate experience in one of the world's most dynamic and luxurious cities—Dubai. Whether you're searching for a stunning property, we have options for you.</p>
+                </div>
+            </div>
 
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://media.istockphoto.com/id/853684082/photo/dubai-downtown-night-scene-uae-beautiful-modern-buildings-bright-glowing-lights-luxurious.jpg?s=170667a&w=0&k=20&c=wx40eUvjwv9JjGedUZV8vCZ8ZF9yUUVkifBtJul1gUg=" class="Hometype-property-image" alt="Buy Property">
-                    <div class="card-body">
-                        <a href="/buy" class="Hometype-btn-primary">Buy Properties</a>
+            <!-- Property Cards -->
+            <div class="col-12 mt-4">
+                <div class="row g-4">
+                    <div class="col-md-4 col-12">
+                        <!-- Card 1 -->
+                        <div class="card">
+                            <img src="https://media.istockphoto.com/id/853684082/photo/dubai-downtown-night-scene-uae-beautiful-modern-buildings-bright-glowing-lights-luxurious.jpg?s=170667a&w=0&k=20&c=wx40eUvjwv9JjGedUZV8vCZ8ZF9yUUVkifBtJul1gUg=" class="Hometype-property-image" alt="Buy Property">
+                            <div class="card-body">
+                                <a href="/buy" class="Hometype-btn-primary">Buy Properties</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="/img/sell.png" class="Hometype-property-image" alt="Rent Property">
-                    <div class="card-body">
-                        <a href="/rent" class="Hometype-btn-primary">Rent Properties</a>
+                    <div class="col-md-4 col-12">
+                        <!-- Card 2 -->
+                        <div class="card">
+                            <img src="/img/sell.png" class="Hometype-property-image" alt="Rent Property">
+                            <div class="card-body">
+                                <a href="/rent" class="Hometype-btn-primary">Rent Properties</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://mybayutcdn.bayut.com/mybayut/wp-content/uploads/3V5A2768-1.jpg" class="Hometype-property-image" alt="Off-Plan Property">
-                    <div class="card-body">
-                        <a href="/offplan" class="Hometype-btn-primary">Off-Plan Properties</a>
+                    <div class="col-md-4 col-12">
+                        <!-- Card 3 -->
+                        <div class="card">
+                            <img src="https://mybayutcdn.bayut.com/mybayut/wp-content/uploads/3V5A2768-1.jpg" class="Hometype-property-image" alt="Off-Plan Property">
+                            <div class="card-body">
+                                <a href="/offplan" class="Hometype-btn-primary">Off-Plan Properties</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -3,35 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+      <!-- External Styles and Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         /* General Styles */
         body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
+           font-family: 'Raleway', sans-serif;
+            background-color: #531F55;
+            color: white;
         }
 
         /* Container */
         .container {
-            background: white;
+            background: linear-gradient(45deg, #531F55, #3A1C40, #4D2F73, #8C4D0A);
             padding: 30px;
-            border-radius: 10px;
+            
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         /* Title */
         h2 {
-            color: #343a40;
+            color: white;
             font-weight: bold;
             margin-bottom: 20px;
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        h2 span {
+            color: gold;
         }
 
         /* Filter Section */
         .filter-section {
-            background: #ffd700;
+            background: gold;
             padding: 15px;
-            border-radius: 8px;
+            
             margin-bottom: 20px;
+            color:black;
         }
 
         .filter-section label {
@@ -43,6 +53,8 @@
             border: none;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease-in-out;
+            background-color : #3D1540;
+            color:white;
         }
 
         .card:hover {
@@ -54,6 +66,7 @@
         }
 
         .card-title a {
+           
             font-size: 18px;
             font-weight: bold;
             color: #007bff;
@@ -65,17 +78,18 @@
         }
 
         /* Button Styles */
-        .show-button {
-            background: #007bff;
-            color: white;
+        .btn {
+            background: #DAA520;
+            color: black;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             transition: background 0.3s;
         }
 
-        .show-button:hover {
-            background: #0056b3;
+        .btn:hover {
+            background: gold;
+            color : white;
         }
 
         /* Image Slider */
@@ -89,12 +103,45 @@
         .carousel-control-prev, .carousel-control-next {
             filter: invert(100%);
         }
+        
+        /* Hide buttons initially */
+.carousel-control-prev,
+.carousel-control-next {
+    display: none;
+    
+    padding: 8px;
+    transition: background-color 0.3s ease;
+}
+
+/* Add positioning just in case */
+.carousel-control-prev,
+.carousel-control-next {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Show buttons & darken image on hover */
+.carousel-hover-wrapper:hover .carousel-control-prev,
+.carousel-hover-wrapper:hover .carousel-control-next {
+    display: block;
+}
+
+.carousel-hover-wrapper:hover .carousel-image {
+    filter: brightness(60%);
+}
+
+/* Optional: smooth dark effect */
+.carousel-image {
+    transition: filter 0.3s ease;
+}
+
+        
     </style>
 </head>
 <body>
 
 <div class="container mt-5">
-    <h2 class="text-center">Image Gallery</h2>
+    <h2 class="text-center"><span>Image</span> Gallery</h2>
 
     <!-- Filter Section -->
     <div class="filter-section">
@@ -140,42 +187,46 @@
     <div class="row mt-3" th:if="${showDetails}">
           <div class="col-md-4 mb-4" th:each="group : ${imageGroups}">
             <div class="card">
-                <!-- Bootstrap Carousel for Image Slider -->
-                <div th:id="'carousel-' + ${group.imageId}" class="carousel slide" data-bs-ride="false">
-                    <div class="carousel-inner">
-                        <th:block th:each="image, iterStat : ${group.images}">
-                            <div class="carousel-item" th:classappend="${iterStat.first} ? 'active' : ''">
-                                <img th:src="@{'/images/' + ${image.id}}" class="d-block w-100" alt="Image">
-                            </div>
-                        </th:block>
+    <!-- Hover Wrapper -->
+    <div class="carousel-hover-wrapper">
+        <!-- Bootstrap Carousel for Image Slider -->
+        <div th:id="'carousel-' + ${group.imageId}" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+                <th:block th:each="image, iterStat : ${group.images}">
+                    <div class="carousel-item" th:classappend="${iterStat.first} ? 'active' : ''">
+                        <img th:src="@{'/images/' + ${image.id}}" class="d-block w-100 carousel-image" alt="Image">
                     </div>
-
-                    <!-- Carousel Controls -->
-                    <button class="carousel-control-prev" type="button" th:data-bs-target="'#carousel-' + ${group.imageId}" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" th:data-bs-target="'#carousel-' + ${group.imageId}" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    </button>
-                </div>
-
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${group.name}"></h5>
-                    <p class="card-text">Type: <span th:text="${group.type}"></span></p>
-                    <p class="card-text">Bedroom: <span th:text="${group.bedroom}"></span></p>
-                    <p class="card-text">Currency: <span th:text="${group.currency}"></span></p>
-
-                    <a th:href="@{/details/{id}(id=${group.imageId})}" class="btn btn-primary">Show Details</a>
-                </div>
+                </th:block>
             </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button"
+                    th:data-bs-target="'#carousel-' + ${group.imageId}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button"
+                    th:data-bs-target="'#carousel-' + ${group.imageId}" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Card Body -->
+    <div class="card-body">
+        <h5 class="card-title" th:text="${group.name}"></h5>
+        <p class="card-text">Type: <span th:text="${group.type}"></span></p>
+        <p class="card-text">Bedroom: <span th:text="${group.bedroom}"></span></p>
+        <p class="card-text">Currency: <span th:text="${group.currency}"></span></p>
+        <a th:href="@{/details/{id}(id=${group.imageId})}" class="btn btn-primary">Show Details</a>
+    </div>
+</div>
+
         </div>
     </div>
     </div>
 
-    <!-- "Show More" Button -->
-    <th:block th:if="${currentPage != null and totalPages != null and currentPage + 1 < totalPages}">
-    <a th:href="@{/gallery(page=${currentPage + 1})}" class="btn btn-primary">Load More</a>
-</th:block>
+   
+
 
 
 
