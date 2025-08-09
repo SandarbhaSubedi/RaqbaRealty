@@ -1,15 +1,807 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-     >
-     
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Home Page</title>
-    <link rel="stylesheet" href="/CSS/home.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- FontAwesome CDN -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background-color:#1a1a1a !important;
+            border-bottom: 2px solid #ffc107;
+            padding: 10px 0;
+        }
+
+        .logo-img {
+            width: 250px;
+            height: auto;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 600;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #ffc107 !important;
+            font-weight: bold;
+            border-bottom: 2px solid #ffc107;
+        }
+
+        .follow-us {
+            color: white;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        
+    .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 100px;
+         background: linear-gradient(to bottom, #1a1a1a 85%, #000000 100%);
+
+            color: #ffc107;
+            min-height: 75vh;
+        }
+
+        .hero-text {
+            width: 60%;
+        }
+
+        .hero-text h6 {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 10px;
+        }
+
+        .firstp {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .secondp {
+           font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .hero-image {
+            width: 50%;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;	
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 600px;
+            
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            /* Fading effect using mask */
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
+        }
+        
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 60px 30px;
+            }
+
+            .hero-text {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .secondp {
+                font-size: 2rem;
+            }
+
+            .hero-image {
+                width: 80%;
+                justify-content: center;
+            }
+        }
+        
+
+        .about-section {
+            padding: 100px 0;
+            background-color: #1a1a1a;
+            text-align: center;
+        }
+
+        .about-title {
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .about-heading h3 span {
+            color: #ffc107; /* Gold color */
+            font-weight: 700;
+        }
+
+        .about-subtitle {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .about-text p {
+            font-size: 1.3rem;
+            font-weight: 500;
+            line-height: 1.7;
+            text-align: justify;
+            padding-right: 20px;
+        }
+
+        .about-image {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .about-image img {
+            width: 100%;
+            
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.4);
+
+            /* Fade effect at the bottom */
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        @media (max-width: 992px) {
+            .about-heading h3 {
+                font-size: 2rem;
+            }
+
+            .about-subtitle {
+                font-size: 2.5rem;
+            }
+
+            .about-text p {
+                font-size: 1.2rem;
+                padding: 0 20px;
+            }
+
+            .about-image {
+                max-width: 90%;
+            }
+        }
+        
+        .golden-line {
+    width: 100%; /* Make the line span the entire width */
+    height: 4px; /* Set the height of the line */
+    background-color: gold; /* Golden color */
+    margin: 10px 0; /* Add space above and below the line */
+}
+
+/* Main Container */
+.Homeexclusive-container {
+    background: linear-gradient(45deg, #000000 0%, #1a1a1a 60%, #C9A036 100%);
+
+    padding: 50px 0;
+    text-align: center;
+}
+
+/* Section Titles */
+.exclusive-firsttitle {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.exclusive-title {
+    font-size: 3rem; /* Increased for emphasis */
+    font-weight: 700;
+    color: #FFD700;
+}
+
+.exclusivecontent-heading {
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+/* Exclusive Property Card */
+.exclusive-card {
+    background-color: rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    text-align: center;
+    width: 38vw !important; /* 🔥 Now takes up 80% of the full page width */
+    margin: 20px auto; /* Center the card */
+    box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.3); /* Golden glow effect */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Remove Bootstrap column restrictions */
+.col-md-6, .col-lg-5 {
+    flex: 0 0 auto;
+    width: auto !important;
+}
+
+/* Hover Effect for Cards */
+.exclusive-card:hover {
+    transform: scale(1.02);
+}
+
+/* Card Body */
+.card-body {
+    padding: 20px;
+}
+
+/* Button */
+.btn-warning {
+    background-color: #FFD700 !important;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-warning:hover {
+    background-color: #E6C300 !important;
+    color: #3D1B42 !important;
+}
+
+/* Custom Carousel Buttons */
+.custom-carousel-btn {
+    border: none;
+    opacity: 0; /* Hide by default */
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Carousel Image */
+.carousel-inner img {
+    max-width: 100%;
+    height: 400px; /* Increased for a bigger look */
+    object-fit: cover;
+    
+}
+
+/* Show controls on hover */
+.exclusive-card:hover .custom-carousel-btn {
+    opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .exclusive-card {
+        width: 80vw !important; /* Slightly smaller for tablets */
+    }
+    .carousel-inner img {
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .exclusive-title {
+        font-size: 2.5rem;
+    }
+    .exclusivecontent-heading {
+        font-size: 1rem;
+    }
+    .exclusive-card {
+        width: 80vw !important; /* Full width on mobile */
+        box-shadow: none;
+    }
+}
+
+
+/* Main Section */
+        .FilterSelect-container {
+            background-color: #1a1a1a;
+            color: #FFD700;
+            padding: 80px 0;
+        }
+
+        /* Card Container */
+        .FilterSelect-card-container {
+            max-width: 80%;
+            margin: 0 auto;
+            
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Image */
+        .FilterSelect-property-image {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            display: block;
+           
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .FilterSelect-property-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Button Wrapper */
+        .FilterSelect-btn-wrapper {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            text-align: center;
+            
+        }
+
+        /* Button Styling */
+        .FilterSelect-btn-primary {
+            background-color: #FFD700;
+            color: #3D1B42;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+        }
+
+        .FilterSelect-btn-primary:hover {
+            background-color: #E6C300;
+            transform: scale(1.05);
+        }
+
+        /* Description */
+        .FilterSelect-property-description {
+            text-align: left;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        
+        .FilterSelect-text-contenth2{
+        color:white;
+        font-size: 2.5rem; /* Increased for emphasis */
+    font-weight: 500;
+        }
+        
+        .FilterSelect-text-content2h2{
+        color:white;
+        font-size: 3rem; /* Increased for emphasis */
+    font-weight: 700;
+        }
+        
+         .FilterSelect-text-content2h2 span{
+        color:#FFD700;
+       
+        }
+
+        .FilterSelect-property-description h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+
+        .FilterSelect-property-description p {
+            font-size: 1.3rem;
+            font-weight: 500;
+            line-height: 1.7;
+            text-align: justify;
+            padding-right: 20px;
+            color:white;
+        }
+
+        /* Responsive */
+        @media (max-width: 767px) {
+            .FilterSelect-text-content2h2 {
+                font-size: 2.5rem;
+            }
+
+            .FilterSelect-property-description p {
+                font-size: 1.4rem;
+            }
+
+           
+
+            .FilterSelect-card-container {
+                max-width: 100%;
+            }
+        }
+        
+               .halfgolden-line {
+    width: 85%; /* Make the line span the entire width */
+    height: 4px; /* Set the height of the line */
+    background-color: gold; /* Golden color */
+    margin: 10px 0; /* Add space above and below the line */
+    margin-left: 7%;
+}
+ 
+      .Hometype-container {
+    background-color: #1a1a1a;
+    padding: 50px 20px;
+}
+
+.Hometype-text-content {
+    text-align: left;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.HTfirst-heading {
+    font-size: 2.3rem;
+    color: #FFD700;
+    font-weight: 500;
+}
+
+.HTsecond-heading {
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 700;
+}
+
+.Hometype-text-content p {
+    margin-bottom: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #f2f2f2;
+}
+
+/* Property card image */
+.Hometype-property-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 2px solid #D4AF37;
+}
+
+/* Primary button */
+.Hometype-btn-primary {
+    background-color: #FFD700;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.Hometype-btn-primary:hover {
+    background-color: #E6C300;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+        
+             /* Container styling */
+.HomeReview-container {
+    text-align: center;
+    background: #1a1a1a; /* Dark background */
+    padding: 40px 0;
+    color: white;
+}
+
+.review-main-titleh1{
+    
+font-weight: 500; /* Bold headers */
+
+font-size: 2.5rem;
+text-align: justify; /* Justify the paragraph text */
+    text-justify: inter-word; /* Ensure words are spaced evenly */
+    color:white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.review-main-title2h1{
+font-weight: 700; /* Bold headers */
+font-style: normal; /* Normal text style */
+font-size: 3rem;
+text-align: justify; /* Justify the paragraph text */
+    text-justify: inter-word; /* Ensure words are spaced evenly */
+    color:#FFD700;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Reviews container */
+.reviews-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 3%;
+}
+
+/* Individual review card */
+.review {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 50px;
+    width: 320px;
+    text-align: center;
+    position: relative;
+    color: white;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Circular avatar */
+.review-avatar {
+    width: 60px;
+    height: 60px;
+    background: #FFD700; /* Golden color */
+    color: black;
+    font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-transform: uppercase;
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Review text styling */
+.review-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.review-location {
+    font-size: 0.9rem;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+.stars {
+    color: #f4c842;
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+.review-message {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* More button */
+.review-more-button-home {
+    background: #FFD700;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    
+}
+
+.review-more-button-home:hover {
+    background: #d9a832;
+}
+
+/* Modal styling */
+.review-modal-overlay-home {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.review-modal-home {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    z-index: 1001;
+    text-align: center;
+    width: 300px;
+    
+}
+
+.review-close-button-home {
+    background: black;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.review-close-button-home:hover {
+    background: #444;
+}
+
+/* See all reviews button */
+.see-all-reviews-container {
+    margin-top: 20px;
+    
+}
+
+.see-all-reviews-button {
+    background: #FFD700;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.see-all-reviews-button:hover {
+    background: #d9a832;
+    }
+    
+    /* Footer Container */
+footer {
+    background-color: rgba(0, 0, 0, 0.3); /* Dark purple background */
+    color: white;
+    padding: 40px 60px;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Left Section: Logo & Tagline */
+.footer-left {
+    max-width: 250px;
+}
+
+.footer-logo {
+    width: 180px; /* Adjust logo size */
+}
+
+.footer-tagline {
+    font-size: 0.9rem;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+/* Middle Section: Navigation Links */
+.footer-middle {
+    display: flex;
+    gap: 40px;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-column a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-column a:hover {
+    color: gold;
+}
+
+/* Right Section: Location & Social Icons */
+.footer-right {
+    text-align: right;
+}
+
+.footer-location {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.footer-address {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+/* Social Icons */
+.footer-social {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    justify-content: flex-end;
+}
+
+.footer-social a {
+    color: white;
+    font-size: 1.5rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-social a:hover {
+    color: gold;
+}
+
+/* Call Us Button */
+.call-us-button {
+            border: 2px solid gold;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            background: transparent;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+.call-us-button:hover {
+    background-color: gold;
+    color: black;
+}
+
+/* Bottom Footer Section */
+.footer-bottom {
+    border-top: 2px solid gold;
+    margin-top: 30px;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-links a:hover {
+    color: gold;
+}
+    </style>
     
     <script>
     function showFullMessageHome(fullName, fullMessage) {
@@ -39,29 +831,23 @@
         modal.style.display = "none";
         modalOverlay.style.display = "none";
     }
-    
-   
- </script>
-
+    </script>
 </head>
-
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-dark">
-            <!-- Logo -->
-            <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="/img/logo.png" alt="Logo" class="logo-img">
-            </a>
-
-            <!-- Toggle Button for Mobile View -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Navbar Links -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/" th:classappend="${page == 'home'} ? 'active' : ''">Home</a>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.png" alt="Logo" class="logo-img">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                      <li>
+                      <a class="nav-link" href="/" th:classappend="${page == 'home'} ? 'active' : ''">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about" th:classappend="${page == 'about'} ? 'active' : ''">About</a>
@@ -82,81 +868,64 @@
                         <a class="nav-link" href="/offplan" th:classappend="${page == 'offplan'} ? 'active' : ''">OffPlan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/properties}" th:classappend="${page == 'properties'} ? 'active' : ''">Properties</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/submitReview}" th:classappend="${page == 'submitReview'} ? 'active' : ''">Review</a>
                     </li>
-                </ul>
-            </div>
-        </nav>
-   
-  
-
-<div class="Homebody">
-
-    <!-- Video Section -->
-    <section class="Homevideo-container">
-        <video autoplay loop muted>
-            <source src="/videos/raqbahome.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-
-    </section>
-
-    <!-- Oval Section -->
-    <section class="Homeoval-container">
-        <div>
-            <img src="/img/logo.png" alt="Welcome to Real Estate Company">
+                
+            </ul>
+            <span class="follow-us">Follow Us</span>
         </div>
-    </section>
-
-  <!-- Welcome Section -->
-<section class="Homewelcome-container">
-    <h2 class="Homewelcome-title">Welcome to Raqba Realty</h2>
-    
-    <div class="Homewelcome-content">
-        <img src="/img/sell.png" alt="Welcome Image" class="Homewelcome-image">
-        
-        <div class="Homewelcome-text">
-            <p>At Raqba Realty, we believe in turning dreams into reality by helping you find the perfect home or property investment.</p>
-            <p>Our team is dedicated to providing the best real estate services, ensuring a seamless and stress-free experience for our clients.</p>
-        </div>
-
-        <img src="/img/sell.png" alt="Welcome Image" class="Homewelcome-image">
     </div>
+</nav>
 
-    <!-- Golden Line -->
-    <div class="Homegolden-line"></div>
+  
+<section class="hero">
+    <div class="hero-text">
+        <h6>RAQBA REALTY</h6>
+        <p class="firstp">WE’RE MORE THAN JUST A REAL ESTATE FIRM.</p>
+        <h3 class="secondp">WE ARE HERE TO<br> HELP YOU FIND <br>YOUR DREAM HOME</h3>
+    </div>
+    <div class="hero-image">
+        <img src="https://tlz.ae/wp-content/uploads/2022/05/TZ-holiday-home.png" alt="Luxury Home">
+    </div>
+</section>
 
-    <!-- Image and Boxed Description Section -->
-    <div class="Homeimage-description">
-        <img src="/img/sell.png" alt="Feature Image">
-        
-        <div class="Homeimage-description-box">
-            <h3>Why Choose Raqba Realty?</h3>
-            <p>With years of expertise and a commitment to excellence, we help clients find their dream properties with ease and confidence.</p>
-            <p>We offer a wide range of real estate services, ensuring every transaction is smooth, transparent, and tailored to your needs.</p>
+<section class="about-section">
+    <div class="container">
+        <div class="about-heading">
+            <h3 class="about-title">We Provide the Best</h3>
+            <h3 class="about-subtitle"><span>Real Estate</span> Experience</h3>
+        </div>
+        <div class="row align-items-center mt-4">
+            <div class="col-lg-6">
+                <div class="about-text">
+                    <p>Discover a world of luxury and exclusivity with **Raqba Realty**—your trusted real estate partner in **Dubai**.  
+                    Whether you're looking for a breathtaking **apartment overlooking the Burj Khalifa**, a **lavish villa in an elite gated community**, or an **ultra-modern penthouse in the heart of the city**, we bring your dream home closer to reality.  
+                    With unmatched expertise and a commitment to excellence, we ensure a **seamless and rewarding property journey** for every client.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="about-image">
+                    <img src="https://media.admiddleeast.com/photos/66e2b5a02e1c6c6f4c437ffd/16:9/w_2560%2Cc_limit/NH_Collection_Dubai_The_Palm_Pool_View_Evening.png" alt="Luxury Apartment" class="img-fluid">
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
+<div class="golden-line"></div>
 
-    
-<section class="Homeexclusive-container">
 
-    <!-- Section Title -->
-    <h2 class="exclusive-title">Explore Exclusive Properties</h2>
+<section class="Homeexclusive-container py-5">
+    <div class="container text-center">
+        <!-- Section Title -->
+        <h3 class="exclusive-firsttitle">Explore</h3>
+        <h3 class="exclusive-title">EXCLUSIVES Properties</h3>
+        <h3 class="exclusivecontent-heading">Explore Dubai's finest properties exclusively with Raqba Realty</h3>
 
-    <h3 class="exclusivecontent-heading">Exclusive Property</h3>
-    <div class="exclusive-content">
-        
-        <!-- Left Side: Exclusive Cards + Description -->
-        <div class="exclusive-left">
-            <!-- Display Two Exclusive Properties -->
-            <div th:each="group, iterStat : ${exclusiveProperties}" th:if="${iterStat.index &lt; 2}" class="exclusive-card">
-                <div class="exclusive-image">
-                    <div th:id="'carousel-' + ${group.imageId}" class="carousel slide" data-bs-ride="false">
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6 col-lg-5 mb-4" th:each="group, iterStat : ${exclusiveProperties}" th:if="${iterStat.index < 2}">
+                <div class="card exclusive-card h-100">
+                    <div id="carousel-" th:id="'carousel-' + ${group.imageId}" class="carousel slide" data-bs-ride="false">
                         <div class="carousel-inner">
                             <th:block th:each="image, imageIter : ${group.images}">
                                 <div class="carousel-item" th:classappend="${imageIter.first} ? 'active' : ''">
@@ -164,179 +933,117 @@
                                 </div>
                             </th:block>
                         </div>
-
-                        <!-- Golden Carousel Controls -->
-                        <button class="carousel-control-prev custom-carousel-btn" type="button" th:data-bs-target="'#carousel-' + ${group.imageId}" data-bs-slide="prev" aria-label="Previous slide">
+                        <!-- Carousel Controls -->
+                        <button class="carousel-control-prev custom-carousel-btn" type="button" th:data-bs-target="'#carousel-' + ${group.imageId}" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon"></span>
                         </button>
-                        <button class="carousel-control-next custom-carousel-btn" type="button" th:data-bs-target="'#carousel-' + ${group.imageId}" data-bs-slide="next" aria-label="Next slide">
+                        <button class="carousel-control-next custom-carousel-btn" type="button" th:data-bs-target="'#carousel-' + ${group.imageId}" data-bs-slide="next">
                             <span class="carousel-control-next-icon"></span>
                         </button>
                     </div>
-                </div>
-
-                <!-- Card Details (Right Side) -->
-                <div class="exclusive-details">
-                    <h3 th:text="${group.name}"></h3>
-                    <p><strong>Type:</strong> <span th:text="${group.type}"></span></p>
-                    <p><strong>Bedroom:</strong> <span th:text="${group.bedroom}"></span></p>
-                    <p><strong>Currency:</strong> <span th:text="${group.currency}"></span></p>
-                    <a th:href="@{/details/{id}(id=${group.imageId})}" class="btn exclusive-btn-primary btn-lg">Show Details</a>
+                    <div class="card-body text-white">
+                        <h5 class="card-title" th:text="${group.name}"></h5>
+                        <p><strong>Type:</strong> <span th:text="${group.type}"></span></p>
+                        <p><strong>Bedroom:</strong> <span th:text="${group.bedroom}"></span></p>
+                        <p><strong>Currency:</strong> <span th:text="${group.currency}"></span></p>
+                        <a th:href="@{/details/{id}(id=${group.imageId})}" class="btn btn-warning text-dark fw-bold">Show Details</a>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Right Side: Heading, Text, and Image + Description -->
-        <div class="exclusive-right">
-            <!-- Top Right: Heading and Text -->
-            <div class="exclusive-header">
-                <h3 class="exclusive-heading">Discover Luxury Living</h3>
-                <p class="exclusive-text">
-                    Experience the finest selection of exclusive properties, designed for luxury and comfort.
-                    Our handpicked listings offer unmatched quality and prime locations to suit your lifestyle.
-                </p>
-            </div>
-
-            <!-- Image + Description Below -->
-            <div class="exclusive-image-description">
-                <img src="/img/sell.png" alt="Exclusive Property" class="exclusive-top-image">
-                <p class="exclusive-top-description">
-                    Experience luxury living with our exclusive collection of properties. 
-                    Designed for those who seek elegance, comfort, and prime locations.
-                </p>
-            </div>
-        </div>
     </div>
-
-    <!-- Golden Line and Additional Description Box -->
-    <div class="exclusive-bottom">
-        <hr class="exclusive-golden-line">
-        <div class="exclusive-info">
-            <img src="/img/sell.png" alt="Luxury Property" class="exclusive-feature-image">
-            <div class="exclusive-description">
-                <p>From modern apartments to grand villas, we provide the best real estate options for those seeking excellence.</p>
-            </div>
-        </div>
-    </div>
-
 </section>
 
+<div class="golden-line"></div>
 
-
-<!-- FilterSelect Section -->
 <section class="FilterSelect-container">
-    <div class="FilterSelect-text-content">
-        <h2>Select Your Preferable Properties </h2>
-        <p>Using Filter</p>
-    </div>
+    <div class="container">
+        <!-- Row -->
+        <div class="row justify-content-center align-items-start">
+            <!-- Left Side: Image -->
+            <div class="col-lg-6 col-md-12 mb-4 d-flex flex-column align-items-center">
+                <div class="FilterSelect-card-container">
+                    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/533766972.jpg?k=1c5b42fb394a6cb30f75c749db931105827ecfcaec472626ef876fa304aad8fe&o=&hp=1" class="FilterSelect-property-image" alt="Buy Property">
+                    <div class="FilterSelect-btn-wrapper">
+                        <a href="/gallery" class="FilterSelect-btn-primary">Filter Property</a>
+                    </div>
+                </div>
+            </div>
 
-    <!-- First Row: Description and Property Card -->
-    <div class="FilterSelect-property-row">
-        <!-- Left Side: Description -->
-        <div class="FilterSelect-property-description">
-            <h3>Filter Property</h3>
-            <p>Browse our exclusive collection of properties at once. Whether you are searching for your first home, a luxury property, or an investment opportunity, our selection includes something for everyone. Our listings feature beautiful homes in prime locations, offering excellent value and long-term potential. Find your dream property today and enjoy a lifetime of comfort and luxury.</p>
-        </div>
-
-        <!-- Right Side: Property Card -->
-        <div class="FilterSelect-homepropertlycard">
-            <img src="/img/banner.png" class="FilterSelect-property-image" alt="Buy Property">
-            <div class="FilterSelect-card-body">
-                <h3 class="FilterSelect-card-title">Filter Property</h3>
-                <p class="FilterSelect-card-text">Browse our exclusive properties at once and find your dream home. Whether you're a first-time buyer or looking for an upscale investment, our diverse portfolio offers a range of styles, from modern apartments to charming family homes.</p>
-                <a href="/buy" class="FilterSelect-btn-primary">Filter Property</a>
+            <!-- Right Side: Description -->
+            <div class="col-lg-6 col-md-12 mb-4 FilterSelect-property-description">
+                <h3 class="FilterSelect-text-contenth2">Explore Properties By</h3>
+                <h3 class="FilterSelect-text-content2h2"><span>Filtering</span> In Your Choice</h3>
+                <p>Browse our exclusive collection of properties at once. Whether you are searching for your first home, a luxury property, or an investment opportunity, our selection includes something for everyone.</p>
             </div>
         </div>
     </div>
-
-    <hr class="Hometype-golden-line">
-
 </section>
 
-<!-- Property Types Section -->
+<div class="halfgolden-line"></div>
+
+
 <section class="Hometype-container">
-    <div class="Hometype-text-content">
-        <h2>Explore Our Properties</h2>
-        <p>Choose from a wide range of properties that suit your needs and preferences.</p>
-    </div>
-
-    <!-- First Row: Description and Property Card -->
-    <div class="Hometype-property-row">
-        <!-- Left Side: Description -->
-        <div class="Hometype-property-description">
-            <h3>Buy Property</h3>
-            <p>Browse our exclusive collection of properties for sale. Whether you are searching for your first home, a luxury property, or an investment opportunity, our selection includes something for everyone. Our listings feature beautiful homes in prime locations, offering excellent value and long-term potential. Find your dream property today and enjoy a lifetime of comfort and luxury.</p>
-        </div>
-
-        <!-- Right Side: Property Card -->
-        <div class="Hometype-homepropertlycard">
-            <img src="/img/banner.png" class="Hometype-property-image" alt="Buy Property">
-            <div class="Hometype-card-body">
-                <h3 class="Hometype-card-title">Buy Property</h3>
-                <p class="Hometype-card-text">Browse our exclusive properties for sale and find your dream home. Whether you're a first-time buyer or looking for an upscale investment, our diverse portfolio offers a range of styles, from modern apartments to charming family homes.</p>
-                <a href="/buy" class="Hometype-btn-primary">Explore Buy Properties</a>
+    <div class="container">
+        <div class="row">
+            <!-- Text Content -->
+            <div class="col-12 col-md-6">
+                <div class="Hometype-text-content">
+                    <h3 class="HTfirst-heading">Current Listings</h3>
+                    <h3 class="HTsecond-heading">What We Have For You</h3>
+                    <p>At Raqba Realty, we specialize in delivering an unparalleled real estate experience in one of the world's most dynamic and luxurious cities—Dubai. Whether you're searching for a stunning property, we have options for you.</p>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <hr class="Hometype-golden-line">
-
-    <!-- Second Row: Rent Property - Card on Left, Description on Right -->
-    <div class="Hometype-property-row">
-        <!-- Left Side: Property Card -->
-        <div class="Hometype-homepropertlycard">
-            <img src="/img/sell.png" class="Hometype-property-image" alt="Rent Property">
-            <div class="Hometype-card-body">
-                <h3 class="Hometype-card-title">Rent Property</h3>
-                <p class="Hometype-card-text">Find the perfect rental property for your needs, whether you’re looking for a cozy apartment in the city or a spacious house in the suburbs. Our rental listings offer something for everyone, providing flexible options that meet your lifestyle.</p>
-                <a href="/rent" class="Hometype-btn-primary">Explore Rent Properties</a>
-            </div>
-        </div>
-
-        <!-- Right Side: Description -->
-        <div class="Hometype-property-description">
-            <h3>Rent Property</h3>
-            <p>Looking for a rental property? Our platform offers a range of rental properties in various price ranges and locations. From high-rise apartments with city views to quiet, family-friendly homes, you can find the perfect place to call home. Rent on your terms, whether you’re staying short-term or long-term, and find a space that suits your lifestyle.</p>
-        </div>
-    </div>
-
-    <hr class="Hometype-golden-line">
-
-    <!-- Third Row: Description and Property Card -->
-    <div class="Hometype-property-row">
-        <!-- Left Side: Description -->
-        <div class="Hometype-property-description">
-            <h3>Off-Plan Property</h3>
-            <p>Explore off-plan properties that offer exceptional value and future growth potential. Our off-plan projects range from cutting-edge modern apartments to sprawling villas, each designed to provide the ultimate in comfort, style, and investment potential. Take advantage of the opportunity to buy early and secure your place in one of the most exciting property developments available today.</p>
-        </div>
-
-        <!-- Right Side: Property Card -->
-        <div class="Hometype-homepropertlycard">
-            <img src="/img/sell.png" class="Hometype-property-image" alt="Off-Plan Property">
-            <div class="Hometype-card-body">
-                <h3 class="Hometype-card-title">Off-Plan Property</h3>
-                <p class="Hometype-card-text">Discover off-plan projects with the potential for significant future returns on investment. Off-plan properties allow you to invest in the property market before the construction is completed, often with exclusive pricing and high returns as development progresses.</p>
-                <a href="/offplan" class="Hometype-btn-primary">Explore Off-Plan Properties</a>
+            <!-- Property Cards -->
+            <div class="col-12 mt-4">
+                <div class="row g-4">
+                    <div class="col-md-4 col-12">
+                        <!-- Card 1 -->
+                        <div class="card">
+                            <img src="https://media.istockphoto.com/id/853684082/photo/dubai-downtown-night-scene-uae-beautiful-modern-buildings-bright-glowing-lights-luxurious.jpg?s=170667a&w=0&k=20&c=wx40eUvjwv9JjGedUZV8vCZ8ZF9yUUVkifBtJul1gUg=" class="Hometype-property-image" alt="Buy Property">
+                            <div class="card-body">
+                                <a href="/buy" class="Hometype-btn-primary">Buy Properties</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <!-- Card 2 -->
+                        <div class="card">
+                            <img src="/img/sell.png" class="Hometype-property-image" alt="Rent Property">
+                            <div class="card-body">
+                                <a href="/rent" class="Hometype-btn-primary">Rent Properties</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <!-- Card 3 -->
+                        <div class="card">
+                            <img src="https://mybayutcdn.bayut.com/mybayut/wp-content/uploads/3V5A2768-1.jpg" class="Hometype-property-image" alt="Off-Plan Property">
+                            <div class="card-body">
+                                <a href="/offplan" class="Hometype-btn-primary">Off-Plan Properties</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-   
+<div class="golden-line"></div>
 
-
-
-
-
-    
 <!-- User Reviews Section -->
 <section class="HomeReview-container">
-    <h2 class="review-main-title">What Our Clients Say</h2>
+    <h1 class="review-main-titleh1">What</h1>
+    <h1 class="review-main-title2h1">Our Clients Says</h1>
 
    <div class="reviews-container">
     <!-- First Review -->
     <div class="review" th:each="review, iterStat : ${reviews}" th:if="${iterStat.index < 4}"
          th:attr="data-fullname=${review.fullName}, data-message=${review.reviewMessage}">
+         <div class="review-avatar" th:text="${#strings.substring(review.fullName, 0, 1)}"></div>
+       
         <p class="review-name"><strong th:text="${review.fullName}"></strong></p>
         <p class="review-location"><strong>Location:</strong> <span th:text="${review.location}"></span></p>
         <p class="stars">
@@ -346,8 +1053,7 @@
         <button class="review-more-button-home" onclick="showFullMessageHome(this.parentNode.dataset.fullname, this.parentNode.dataset.message)">More</button>
     </div>
 
-    <!-- Centered "Latest Reviews" Text -->
-    <h2 class="latest-reviews-text">Latest Reviews</h2>
+    
 
 </div>
 
@@ -368,110 +1074,69 @@
     
 </section>
 
-    
- 
-
-   <!-- About Us Section with Overlapping Images -->
-<section class="Aboutsection-container" id="about-us">
-    <div class="Aboutcontainer">
-        <h2 class="text-center Aboutsection-title">About Us</h2>
-        
-        <div class="row align-items-center">
-            <!-- Left Column with Overlapping Images -->
-            <div class="col-md-6 position-relative text-center">
-                <div class="Aboutimage-container">
-                    <img src="/img/sell.png" alt="Image 1" class="img-fluid rounded-circle Aboutfirst-image">
-                    <img src="/img/banner.png" alt="Image 2" class="img-fluid rounded-circle Aboutsecond-image">
-                </div>
-            </div>
-
-            <!-- Right Column with Content -->
-            <div class="col-md-6">
-                <h3 class="Aboutsection-subtitle">Who We Are</h3>
-                <p>
-                    At <strong>Raqba Realty</strong>, we believe real estate is not just about properties—it's about people. We are dedicated to helping you find the perfect property with a personalized and seamless experience.
-                </p>
-
-                <h3 class="Aboutsection-subtitle">Our Values</h3>
-                <ul class="about-values">
-                    <li><strong>Trust:</strong> Building relationships based on honesty and transparency.</li>
-                    <li><strong>Excellence:</strong> Delivering top-tier service with professionalism.</li>
-                    <li><strong>Customer-Centric:</strong> Your satisfaction is our priority.</li>
-                    <li><strong>Innovation:</strong> Using modern technology to offer smart solutions.</li>
-                </ul>
-
-                <h3 class="Aboutsection-subtitle">Our Mission</h3>
-                <p>
-                    Our mission is to make buying, selling, or renting real estate simple and stress-free. We provide expert guidance, in-depth market analysis, and personalized solutions to meet your needs.
-                </p>
-
-                <h3 class="Aboutsection-subtitle">Our Vision</h3>
-                <p>
-                    We aspire to be a leading real estate company known for trust, excellence, and innovation. Our goal is to empower individuals to make informed real estate decisions with confidence.
-                </p>
-
-                <!-- Call to Action -->
-                <div class="text-center mt-4">
-                    <a href="/contact" class="btn btn-primary btn-lg">Contact Us for More Information</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-    
- 
-  
- 
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    </div>
-<footer class="footer">
-    <!-- Top Logo -->
-    <div class="footer-logo">
-        <img src="img/logo.png" alt="Company Logo">
-    </div>
-
+<footer>
     <div class="footer-container">
-        <!-- Left: Pages -->
-        <div class="footer-section pages">
-            <h3>Pages</h3>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/services">Services</a></li>
-                <li><a href="/buy">Buy</a></li>
-                <li><a href="/rent">Rent</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
+        <!-- Left Section: Logo -->
+        <div class="footer-left">
+            <img src="/img/logo.png" alt="logo-of-footer" class="footer-logo">
+            <p class="footer-tagline">WHERE DREAMS MEET REALITY</p>
         </div>
 
-        <!-- Center: Location -->
-        <div class="footer-section location">
-            <h3>Our Location</h3>
-            <p>1234 Street Name, City, Country</p>
-            <p>Email: info@example.com</p>
-            <p>Phone: +123 456 7890</p>
-        </div>
-
-        <!-- Right: Social Icons -->
-        <div class="footer-section social">
-            <h3>Follow Us</h3>
-            <div class="social-icons">
-                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        <!-- Middle Section: Navigation Links -->
+        <div class="footer-middle">
+            <div class="footer-column">
+                <a href="#">Apartments</a>
+                <a href="#">Penthouses</a>
+                <a href="#">Villas</a>
+                <a href="#">Townhouses</a>
+                <a href="#">Off-Plan</a>
+            </div>
+            <div class="footer-column">
+                <a href="#">Catalogs</a>
+                <a href="#">Area Guides</a>
+                <a href="#">Sell</a>
+                <a href="#">Rent</a>
+                <a href="#">Developers</a>
+            </div>
+            <div class="footer-column">
+                <a href="#">Raqba Realty</a>
+                <a href="#">Reviews</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact Us</a>
             </div>
         </div>
+
+        <!-- Right Section: Contact Info & Social Icons -->
+        <div class="footer-right">
+            <p class="footer-location"><strong>Dubai, UAE</strong></p>
+            <p class="footer-address">Al Bahar Building, Al Khabesi Area, Deira</p>
+            
+            <div class="footer-social">
+                <a href="#"><i class="fas fa-envelope"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <a href="tel:+9800000000" class="call-us-button mt-3">Call Us</a>
+        </div>
     </div>
 
-    <!-- Copyright -->
+    <!-- Bottom Footer Section -->
     <div class="footer-bottom">
-        <p>&copy; 2025 YourCompany. All Rights Reserved.</p>
+        <p>RAQBA REALTY ©2025, All Rights Reserved</p>
+        <div class="footer-links">
+            <a href="#">Terms of Use</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Sitemap</a>
+        </div>
     </div>
-</footer> 
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
